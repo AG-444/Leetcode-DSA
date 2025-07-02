@@ -10,13 +10,13 @@
  */
 class Solution {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-        // Create a dummy node to simplify edge cases
+        // Dummy node to simplify result list creation
         ListNode dummy = new ListNode(-1);
         ListNode current = dummy;
 
-        // Traverse both lists and attach the smaller node to the current pointer
+        // Traverse both lists
         while (list1 != null && list2 != null) {
-            if (list1.val <= list2.val) {
+            if (list1.val < list2.val) {
                 current.next = list1;
                 list1 = list1.next;
             } else {
@@ -26,14 +26,13 @@ class Solution {
             current = current.next;
         }
 
-        // Attach the remaining nodes (if any)
+        // Attach the remaining nodes
         if (list1 != null) {
             current.next = list1;
-        } else {
+        } else if (list2 != null) {
             current.next = list2;
         }
 
-        // Return the merged list starting from the next of dummy
-        return dummy.next;
+        return dummy.next; // Head of the merged list
     }
 }
