@@ -21,7 +21,6 @@ class Solution {
                     strs2[j] = "-1";
                 }
             }
-            System.out.println(ans);
             result.add(ans);
         }
         return result;
