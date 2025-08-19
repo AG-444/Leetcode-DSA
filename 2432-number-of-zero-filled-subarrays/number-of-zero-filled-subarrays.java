@@ -6,16 +6,11 @@ class Solution {
         for(int i=0;i<n;i++){
             if(nums[i] == 0){
                 subSize++;
+                ans += subSize;
             }
             else{
-                if(subSize>0){
-                    ans += (subSize*(subSize+1))/2;
-                    subSize = 0;
-                }
+                subSize = 0;
             }
-        }
-        if(subSize>0){
-            ans += (subSize*(subSize+1))/2;
         }
         return ans;
     }
