@@ -26,7 +26,6 @@ class Solution {
                 }
             }
         }
-        System.out.println(maxI+" "+minI+" "+maxJ+" "+minJ);
         return (maxI-minI+1)*(maxJ-minJ+1);
     }
 }
