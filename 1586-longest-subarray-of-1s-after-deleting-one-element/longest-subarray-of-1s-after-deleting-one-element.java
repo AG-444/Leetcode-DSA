@@ -15,7 +15,7 @@ class Solution {
                     zeroCount--;
                 }
                 left++;
-                System.out.println(right +"-"+ left + " - "+nums[left]);
+
             }
 
             // The length of the current valid subarray of 1s
