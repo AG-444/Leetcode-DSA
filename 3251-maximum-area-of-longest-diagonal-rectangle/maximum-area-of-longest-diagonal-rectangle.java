@@ -13,11 +13,8 @@ class Solution {
                     Max = curr;
                     idx = i;
                 }
-            } 
-            System.out.println(i+" - "+dimensions[i][0]+" - "+dimensions[i][1]+" - "+ curr+ " - "+Max);
-             
+            }   
         }
-        System.out.println(dimensions[idx][0]+" - "+dimensions[idx][1]);
         return dimensions[idx][0]*dimensions[idx][1];
     }
 }
