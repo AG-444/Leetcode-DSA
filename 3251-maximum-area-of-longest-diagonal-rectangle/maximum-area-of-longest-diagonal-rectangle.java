@@ -3,7 +3,7 @@ class Solution {
         double Max = 0.0;
         int idx = -1;
         for(int i=0;i<dimensions.length;i++){
-            double curr = Math.sqrt((dimensions[i][0]*dimensions[i][0])+(dimensions[i][1]*dimensions[i][1]));
+            double curr = (dimensions[i][0]*dimensions[i][0])+(dimensions[i][1]*dimensions[i][1]);
             if(curr>Max){
                 Max = curr;
                 idx = i;
