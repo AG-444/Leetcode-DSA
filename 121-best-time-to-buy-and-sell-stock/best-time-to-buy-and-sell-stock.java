@@ -7,7 +7,7 @@ class Solution {
         while(left<=right && right<n){
             int a = prices[right] - prices[left];
             if(a>max) max = a;
-            if(prices[right] < prices[left]){
+            else if(prices[right] < prices[left]){
                 left = right;
                 right++;
             }
