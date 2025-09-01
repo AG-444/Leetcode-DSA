@@ -1,21 +1,28 @@
-// Last updated: 8/28/2025, 9:58:10 AM
+// Last updated: 9/1/2025, 5:31:55 PM
 class Solution {
-    public int coinChange(int[] coins, int amount) {
-        int[] dp = new int[amount + 1];
-        
-        // Initialize with a large value
-        Arrays.fill(dp, amount + 1);
-        dp[0] = 0;
+    public int changeDp(int[] coins, int amount, int[] dp){
+        if(amount == 0) return 0;
+        if(dp[amount] != -1) return dp[amount]; // avoid recomputation
 
-        // Bottom-up DP
-        for (int i = 1; i <= amount; i++) {
-            for (int coin : coins) {
-                if (i - coin >= 0) {
-                    dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+        int ans = Integer.MAX_VALUE;
+        for(int i = 0; i < coins.length; i++){
+            if(amount - coins[i] >= 0){ // fix here
+                int subAns = changeDp(coins, amount - coins[i], dp);
+                if(subAns != Integer.MAX_VALUE){
+                    ans = Math.min(ans, subAns + 1);
                 }
             }
         }
+        return dp[amount] = ans;
+    }
 
-        return dp[amount] > amount ? -1 : dp[amount];
+    public int coinChange(int[] coins, int amount) {
+        if(amount == 0) return 0;
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, -1);
+        dp[0] = 0;
+
+        int res = changeDp(coins, amount, dp);
+        return res == Integer.MAX_VALUE ? -1 : res; // fix here
     }
 }
