@@ -1,28 +1,37 @@
-// Last updated: 9/3/2025, 5:05:35 PM
-// class Solution {
-//     public List<List<Integer>> subsetsWithDup(int[] nums) {
-        
-//     }
-// }
-
+// Last updated: 9/3/2025, 5:07:07 PM
 class Solution {
-    public void subsetAdd(int[] nums, int idx,List<Integer> curr, List<List<Integer>> result){
-        if(idx == nums.length){
-            List<Integer> include = new ArrayList<>(curr);
-            if(!result.contains(include)) result.add(include);
-            return;
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
+        List<Integer> partialRes = new ArrayList<>();
+        boolean[] visited = new boolean[nums.length];
+        List<List<Integer>> res = new ArrayList<>();
+        for (int i=0;i<=nums.length;i++)
+        {
+            backtrace(i, nums, visited, partialRes, res);
         }
 
-        subsetAdd(nums, idx+1,curr,result);
-        curr.add(nums[idx]);
-        subsetAdd(nums,idx+1,curr,result);
-        curr.remove(curr.size()-1);
-
+        return res;
     }
-    public List<List<Integer>> subsetsWithDup(int[] nums) {
-        List<List<Integer>> result = new ArrayList<>();
-        Arrays.sort(nums);
-        subsetAdd(nums,0,new ArrayList<>(), result);
-        return result;
+
+    public void backtrace(int start, int[] nums, boolean[] visited, List<Integer> partialRes, List<List<Integer>> res)
+    {
+        if (start==nums.length)
+        {
+            res.add(new ArrayList<Integer>(partialRes));
+        }
+        for (int i=start;i<nums.length;i++)
+        {
+            if ((start>0)&&(nums[start]==nums[start-1]&&!visited[start-1]))
+            {
+                continue;
+            }
+            visited[start] = true;
+            partialRes.add(nums[start]);
+            backtrace(i+1, nums, visited, partialRes, res);
+            partialRes.remove(partialRes.size()-1);
+            visited[start] = false;
+
+
+        }
     }
 }
