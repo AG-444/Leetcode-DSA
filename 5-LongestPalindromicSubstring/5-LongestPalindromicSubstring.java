@@ -1,29 +1,26 @@
-// Last updated: 8/28/2025, 9:59:00 AM
+// Last updated: 9/4/2025, 10:49:08 AM
 class Solution {
     public String longestPalindrome(String s) {
-        if (s == null || s.length() < 1) return "";
-        
-        int start = 0, end = 0;
-        
-        for (int i = 0; i < s.length(); i++) {
-            int len1 = expandFromCenter(s, i, i);     // Odd length palindrome
-            int len2 = expandFromCenter(s, i, i + 1); // Even length palindrome
-            int len = Math.max(len1, len2);
-            
-            if (len > end - start) {
-                start = i - (len - 1) / 2;
-                end = i + len / 2;
+        int centers = 2*s.length() -1;
+        int max = 0;
+        StringBuilder sb = new StringBuilder(s);
+        StringBuilder ans = new StringBuilder();
+        for(int i=0;i<centers;i++){
+            int left = i/2;
+            int right = left+(i%2);
+            StringBuilder substring = new StringBuilder();
+            while(left>=0 && right<sb.length() && s.charAt(left) == s.charAt(right)){
+                if(s.charAt(left) == s.charAt(right)){
+                    substring = new StringBuilder(sb.substring(left,right+1));
+                }
+                left--;
+                right++;
             }
-        }
-        
-        return s.substring(start, end + 1);
-    }
-    
-    private int expandFromCenter(String s, int left, int right) {
-        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
-            left--;
-            right++;
-        }
-        return right - left - 1; // Length of the palindrome
+            if(substring.length() > max){
+                max = substring.length();
+                ans = substring;
+            }
+        }   
+        return ans.toString();
     }
 }
