@@ -1,4 +1,4 @@
-// Last updated: 9/5/2025, 9:12:10 PM
+// Last updated: 9/5/2025, 9:20:48 PM
 class Solution {
     public int[][] merge(int[][] arr){
         int n = arr.length;
@@ -10,21 +10,21 @@ class Solution {
         for(int i=0;i<n;i++){
             int start = arr[i][0];
             int end = arr[i][1];
-            if(!ans.isEmpty() && end<=ans.get(ans.size()-1)[1]) continue;
-            for(int j=i+1;j<n;j++){
-                if (arr[j][0]<=end){
-                    end = Math.max(end, arr[j][1]);
+            if(ans.isEmpty()) ans.add(new int[]{start,end});
+            else{
+                int prevEnd = ans.get(ans.size()-1)[1];
+                if(prevEnd >= start){
+                    prevEnd = Math.max(prevEnd,end);
+                    ans.get(ans.size()-1)[1] = prevEnd;
                 }
                 else{
-                    break;
+                    ans.add(new int[]{start,end});
                 }
             }
-
-            ans.add(new int[]{start,end});
         }
         int[][] result = new int[ans.size()][2];
         for (int i = 0; i < ans.size(); i++) {
-            result[i] = ans.get(i); // each element is already an int[2]
+            result[i] = ans.get(i);
         }
         return result;
     }
