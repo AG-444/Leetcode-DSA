@@ -1,4 +1,4 @@
-// Last updated: 9/8/2025, 12:04:24 PM
+// Last updated: 9/8/2025, 12:04:32 PM
 class Solution {
     public int largestRectangleArea(int[] height){
       int[] heights = new int[height.length+1];
