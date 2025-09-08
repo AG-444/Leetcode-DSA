@@ -1,4 +1,4 @@
-// Last updated: 9/8/2025, 12:04:32 PM
+// Last updated: 9/8/2025, 12:07:40 PM
 class Solution {
     public int largestRectangleArea(int[] height){
       int[] heights = new int[height.length+1];
@@ -30,10 +30,10 @@ class Solution {
         stack.push(i);
       }
 
-    //   for(int i=0;i<heights.length;i++){
-    //     System.out.println(i+ " " + nse[i]);
-    //     System.out.println(i+ " " + pse[i]+"\n");
-    //   }
+      for(int i=0;i<heights.length;i++){
+        System.out.println(heights[i]+ " " + nse[i]);
+        System.out.println(heights[i]+ " " + pse[i]+"\n");
+      }
       int max = 0;
       for(int i =0;i<height.length;i++){
         int area = heights[i]*(nse[i] - pse[i] - 1);
