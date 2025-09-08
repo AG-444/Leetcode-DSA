@@ -1,33 +1,25 @@
-// Last updated: 8/28/2025, 9:58:46 AM
-import java.util.*;
-
+// Last updated: 9/8/2025, 6:31:49 PM
 class Solution {
-    public List<List<Integer>> permute(int[] nums) {
-        List<List<Integer>> list = new ArrayList<>();
-        backtrack(nums, 0, list);
-        return list;
-    }
-    public void backtrack(int[] nums, int start, List<List<Integer>> list) {
-        if (start == nums.length) {
-            List<Integer> current = new ArrayList<>();
-            for (int num : nums) {
-                current.add(num);
-            }
-            list.add(new ArrayList<>(current));
+    public static void makePerm(int[] nums, List<List<Integer>> ans , List<Integer> curr, boolean[] freq){
+        if(curr.size() == nums.length){
+            ans.add(new ArrayList<>(curr));
             return;
         }
-
-        for (int i = start; i < nums.length; i++) {
-            swap(nums, start, i);
-            backtrack(nums, start + 1, list);
-            swap(nums, start, i);
+        for(int i=0;i<nums.length;i++){
+            if(!curr.contains(nums[i])){
+                curr.add(nums[i]);
+                freq[i] = true;
+                makePerm(nums,ans,curr,freq);
+                curr.remove(curr.size()-1);
+                freq[i] = false;
+            }
         }
     }
 
-    
-    private void swap(int[] nums, int i, int j) {
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        boolean[] freq = new boolean[nums.length];
+        makePerm(nums,ans,new ArrayList<>(),freq);
+        return ans;
     }
 }
