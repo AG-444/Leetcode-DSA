@@ -1,4 +1,4 @@
-// Last updated: 9/8/2025, 6:31:49 PM
+// Last updated: 9/8/2025, 6:33:44 PM
 class Solution {
     public static void makePerm(int[] nums, List<List<Integer>> ans , List<Integer> curr, boolean[] freq){
         if(curr.size() == nums.length){
@@ -6,7 +6,7 @@ class Solution {
             return;
         }
         for(int i=0;i<nums.length;i++){
-            if(!curr.contains(nums[i])){
+            if(!freq[i]){
                 curr.add(nums[i]);
                 freq[i] = true;
                 makePerm(nums,ans,curr,freq);
