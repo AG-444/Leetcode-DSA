@@ -1,35 +1,32 @@
-// Last updated: 9/9/2025, 9:53:36 AM
+// Last updated: 9/9/2025, 9:53:56 AM
 class Solution {
+    int MOD = 1_000_000_007;
+    
     public int peopleAwareOfSecret(int n, int delay, int forget) {
-        int MOD = 1_000_000_007;
+        long[] dp = new long[n + 1]; 
+        dp[1] = 1; // day 1, one person knows
 
-        long[] dp = new long[n + 1]; // dp[i] = number of people who learn the secret on day i
-        dp[1] = 1; // Day 1: first person learns the secret
-
-        long sharers = 0; // number of active sharers at day i
+        long share = 0; // number of people currently able to share
 
         for (int day = 2; day <= n; day++) {
-            // People start sharing after `delay` days
+            // people start sharing today
             if (day - delay >= 1) {
-                sharers = (sharers + dp[day - delay]) % MOD;
+                share = (share + dp[day - delay]) % MOD;
             }
-            // People forget after `forget` days
+            // people forget today
             if (day - forget >= 1) {
-                sharers = (sharers - dp[day - forget] + MOD) % MOD;
+                share = (share - dp[day - forget] + MOD) % MOD;
             }
-
-            // All current sharers create new learners today
-            dp[day] = sharers;
+            dp[day] = share; // new people who learn today
         }
 
-        // Count how many people still remember the secret at the end of day n
-        long result = 0;
+        long ans = 0;
+        // sum people who still remember on day n
         for (int day = n - forget + 1; day <= n; day++) {
             if (day >= 1) {
-                result = (result + dp[day]) % MOD;
+                ans = (ans + dp[day]) % MOD;
             }
         }
-
-        return (int) result;
+        return (int) ans;
     }
 }
