@@ -1,21 +1,28 @@
-// Last updated: 9/11/2025, 7:28:31 PM
+// Last updated: 9/11/2025, 7:30:27 PM
+import java.util.HashMap;
+
 class Solution {
     public int fourSumCount(int[] nums1, int[] nums2, int[] nums3, int[] nums4) {
-        int x = 0;
-        Map<Integer, Integer> cPlusD = new HashMap<>();
-        for (int num3 : nums3) {
-            for (int num4 : nums4) {
-                int sum = num3 + num4;
-                cPlusD.put(sum, cPlusD.getOrDefault(sum, 0) + 1);
+        HashMap<Integer, Integer> map = new HashMap<>();
+        
+        
+        for (int a : nums1) {
+            for (int b : nums2) {
+                int sum = a + b;
+                map.put(sum, map.getOrDefault(sum, 0) + 1);
             }
         }
-        for(int num1:nums1){
-            for(int num2:nums2){
-                if(cPlusD.containsKey(0-num1-num2)){
-                    x += cPlusD.get(0-num1-num2);
-                }
+        
+        int count = 0;
+        
+      
+        for (int c : nums3) {
+            for (int d : nums4) {
+                int target = -(c + d);
+                count += map.getOrDefault(target, 0);
             }
         }
-        return x;
+        
+        return count;
     }
 }
