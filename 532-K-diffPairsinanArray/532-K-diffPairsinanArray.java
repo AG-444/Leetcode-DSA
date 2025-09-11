@@ -1,4 +1,4 @@
-// Last updated: 9/11/2025, 4:10:07 PM
+// Last updated: 9/11/2025, 4:11:33 PM
 class Solution {
     public int findPairs(int[] nums, int k) {
         if(nums.length==0) return 0;
