@@ -1,23 +1,26 @@
-// Last updated: 9/11/2025, 4:48:14 PM
+// Last updated: 9/11/2025, 4:50:58 PM
 class Solution {
-    public int numberOfSubarrays(int[] nums, int k) {
-        for(int i=0;i<nums.length;i++){
-            nums[i] = nums[i]%2;
-        }
-
-        Map<Integer, Integer> map = new HashMap<>();
-
-        int prefSum = 0;
+    private int solve(int[] nums, int k) {
+        int ans = 0;
+        int left = 0;
         int count = 0;
-        map.put(0,1);
-        for(int i=0;i<nums.length;i++){
-            prefSum += nums[i];
-            if(map.containsKey(prefSum-k)){
-                count += map.get(prefSum-k);
+
+        for (int right = 0; right < nums.length; right++) {
+            if (nums[right] % 2 != 0) count++;
+
+            while (count >= k && left <= right) {
+                if (nums[left] % 2 != 0) count--;
+
+                left++;
             }
-            map.put(prefSum,map.getOrDefault(prefSum,0)+1);
+
+            ans += left;
         }
 
-        return count;
+        return ans;
+    }
+
+    public int numberOfSubarrays(int[] nums, int k) {
+        return solve(nums, k) - solve(nums, k + 1);
     }
 }
