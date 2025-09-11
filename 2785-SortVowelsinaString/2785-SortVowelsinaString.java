@@ -1,33 +1,28 @@
-// Last updated: 9/11/2025, 10:19:20 AM
+// Last updated: 9/11/2025, 10:20:07 AM
 class Solution {
     public String sortVowels(String s) {
-        List<Character> vowels = new ArrayList<>(Arrays.asList('a','e','i','o','u','A','E','I','O','U'));
-        int n = s.length();
-        Character[] t = new Character[n];
-        List<Character> chars = new ArrayList<>();
-        List<Integer> index = new ArrayList<>();
+        String vowelCheck = "AEIOUaeiou";    
+        int count = 0; 
+        for(int i=0;i<s.length();i++) 
+        {
+            if(vowelCheck.contains(s.charAt(i) + "")) count++; 
+        } 
+        char[] vows = new char[count];  
+        int ind = 0; 
+        for(int i=0;i<s.length();i++) 
+        {
+            if(vowelCheck.contains(s.charAt(i) + "")) vows[ind++] = s.charAt(i);  
+        } 
+        Arrays.sort(vows);   
+        ind = 0;
+        char res[] = s.toCharArray();  
+        for(int i=0;i<s.length();i++) 
+        {
+            if(vowelCheck.contains(res[i] + "")) res[i] = vows[ind++];   
+        } 
+        return String.valueOf(res); 
 
 
 
-        for(int i=0;i<n;i++){
-            if(vowels.contains(s.charAt(i))){
-                chars.add(s.charAt(i));
-                index.add(i);
-            }
-            else{
-                t[i] = s.charAt(i);
-            }
-        }
-        Collections.sort(chars);
-        for(int i=0;i<chars.size();i++){
-            t[index.get(i)] = chars.get(i);
-        }
-
-        StringBuilder sb = new StringBuilder();
-        for(char ch:t){
-            sb.append(ch);
-        }
-
-        return sb.toString();
     }
 }
