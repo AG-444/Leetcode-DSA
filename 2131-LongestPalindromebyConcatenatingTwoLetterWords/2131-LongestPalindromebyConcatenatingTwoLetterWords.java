@@ -1,42 +1,32 @@
-// Last updated: 9/11/2025, 8:32:55 PM
+// Last updated: 9/11/2025, 8:34:56 PM
 class Solution {
     public int longestPalindrome(String[] words) {
-        Map<String,Integer> map = new HashMap<>();
-        int ans = 0;
+        int alphabetSize = 26;
+        int[][] count = new int[alphabetSize][alphabetSize];
 
-        for(String str:words){
-            map.put(str,map.getOrDefault(str,0)+1);
+        for (String word : words) {
+            count[word.charAt(0) - 'a'][word.charAt(1) - 'a']++;
         }
 
-        System.out.println(map);
+        int answer = 0;
+        boolean center = false;
 
-        List<String> symm = new ArrayList<>();
-        for(String str:words){
-            if(str.charAt(0) == str.charAt(1)){
-                if((map.get(str)>1 && map.get(str)%2 == 0)){
-                    continue;
-                }
-                else{
-                    symm.add(str);
-                    map.put(str,map.get(str)-1);
-                }
+        for (int i = 0; i < alphabetSize; i++) {
+            if (count[i][i] % 2 == 0) {
+                answer += count[i][i];
             }
-        }  //gets center if odd existence symm exists
+            else {
+                answer += count[i][i] - 1;
+                center = true;
+            }
 
-        if(symm.size() > 0){
-            ans +=2;
-        }
-        
-        for(String str:words){
-            String rev = new StringBuilder(str).reverse().toString();
-            if(map.containsKey(rev) && map.get(rev)>0 && map.get(str)> 0){
-                ans += 4;
-                map.put(str,map.get(str)-1);
-                map.put(rev,map.get(rev)-1);
+            for (int j = i + 1; j < alphabetSize; j++) {
+                answer += 2 * Math.min(count[i][j], count[j][i]);
             }
         }
 
+        if (center) answer++;
 
-        return ans;
+        return answer * 2;
     }
 }
