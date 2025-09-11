@@ -1,4 +1,4 @@
-// Last updated: 9/11/2025, 10:19:12 AM
+// Last updated: 9/11/2025, 10:19:20 AM
 class Solution {
     public String sortVowels(String s) {
         List<Character> vowels = new ArrayList<>(Arrays.asList('a','e','i','o','u','A','E','I','O','U'));
