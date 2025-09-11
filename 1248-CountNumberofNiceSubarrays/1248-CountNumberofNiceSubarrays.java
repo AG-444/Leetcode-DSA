@@ -1,26 +1,27 @@
-// Last updated: 9/11/2025, 4:50:58 PM
+// Last updated: 9/11/2025, 4:53:43 PM
 class Solution {
-    private int solve(int[] nums, int k) {
-        int ans = 0;
-        int left = 0;
-        int count = 0;
-
-        for (int right = 0; right < nums.length; right++) {
-            if (nums[right] % 2 != 0) count++;
-
-            while (count >= k && left <= right) {
-                if (nums[left] % 2 != 0) count--;
-
-                left++;
-            }
-
-            ans += left;
+    public int numberOfSubarrays(int[] nums, int k) {
+        int len = nums.length;
+        
+        for(int i=0; i<len; i++) {
+            if(nums[i] % 2 == 0) nums[i] = 0;
+            else nums[i] = 1;
         }
 
-        return ans;
-    }
+        int[] freq = new int[len+1];
+        int prefix = 0, count = 0;
+        freq[0] = 1;
 
-    public int numberOfSubarrays(int[] nums, int k) {
-        return solve(nums, k) - solve(nums, k + 1);
+        for(int num : nums) {
+            prefix += num;
+
+            if(prefix >= k) {
+                count += freq[prefix - k];
+            }
+
+            freq[prefix]++;
+        }
+
+        return count;
     }
 }
