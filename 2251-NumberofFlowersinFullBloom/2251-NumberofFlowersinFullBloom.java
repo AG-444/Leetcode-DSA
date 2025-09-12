@@ -1,4 +1,4 @@
-// Last updated: 9/12/2025, 8:48:09 AM
+// Last updated: 9/12/2025, 11:40:24 AM
 class Solution {
     public int[] fullBloomFlowers(int[][] flowers, int[] people) {
         Comparator<int[]> comp = (a,b) ->{
@@ -14,10 +14,14 @@ class Solution {
         //2 = flowers finished;
 
         PriorityQueue<int[]> pq = new PriorityQueue<>(comp);
+
+
         for(int i=0;i<flowers.length;i++){
             pq.offer(new int[]{0,flowers[i][0]});
             pq.offer(new int[]{2,flowers[i][1]}); 
         }
+
+        
         for(int i=0;i<people.length;i++){
             pq.offer(new int[]{1,people[i],i});
         }
