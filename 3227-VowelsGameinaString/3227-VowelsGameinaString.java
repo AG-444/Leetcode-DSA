@@ -1,4 +1,4 @@
-// Last updated: 9/12/2025, 7:39:04 AM
+// Last updated: 9/12/2025, 7:39:30 AM
 class Solution {
     public boolean doesAliceWin(String s) {
         for(int i=0;i<s.length();i++){
