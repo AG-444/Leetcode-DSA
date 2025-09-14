@@ -1,4 +1,4 @@
-// Last updated: 9/14/2025, 12:07:12 PM
+// Last updated: 9/14/2025, 12:07:20 PM
 class Solution {
     public boolean isAnagram(String s, String t) {
         char[] st = s.toCharArray();
