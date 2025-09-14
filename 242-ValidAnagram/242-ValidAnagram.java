@@ -1,22 +1,12 @@
-// Last updated: 9/14/2025, 12:06:56 PM
+// Last updated: 9/14/2025, 12:07:12 PM
 class Solution {
     public boolean isAnagram(String s, String t) {
-        if(s.length()!=t.length()){
-            return false;
-        }
-        else{
-            char[] s1=s.toCharArray();
-            char[] s2=t.toCharArray();
-           
-            Arrays.sort(s1);
-            Arrays.sort(s2);
+        char[] st = s.toCharArray();
+        char[] tt = t.toCharArray();
+        Arrays.sort(st);
+        Arrays.sort(tt);
+        return new String(st).equals(new String(tt));
+        
 
-            if(Arrays.equals(s1,s2)){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
     }
 }
