@@ -1,16 +1,22 @@
-// Last updated: 9/14/2025, 12:03:15 PM
+// Last updated: 9/14/2025, 12:06:56 PM
 class Solution {
     public boolean isAnagram(String s, String t) {
-        Map<Character, Integer> map = new HashMap<>();
-        for(char ch: s.toCharArray()){
-            map.put(ch,map.getOrDefault(ch,0)+1);
+        if(s.length()!=t.length()){
+            return false;
         }
-        Map<Character, Integer> map2 = new HashMap<>();
-        for(char ch: t.toCharArray()){
-            map2.put(ch,map2.getOrDefault(ch,0)+1);
-        }
+        else{
+            char[] s1=s.toCharArray();
+            char[] s2=t.toCharArray();
+           
+            Arrays.sort(s1);
+            Arrays.sort(s2);
 
-        return map.equals(map2);
-        
+            if(Arrays.equals(s1,s2)){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
     }
 }
