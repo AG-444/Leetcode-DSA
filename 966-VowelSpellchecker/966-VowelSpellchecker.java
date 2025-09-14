@@ -1,55 +1,48 @@
-// Last updated: 9/14/2025, 4:44:10 PM
+// Last updated: 9/14/2025, 6:38:19 PM
 class Solution {
+    Set<String> set;
+    Map<String,String> wordMap;
+    Map<String,String> vowMap;
     public String[] spellchecker(String[] wordlist, String[] queries) {
-        String[] ans = new String[queries.length];
-        Arrays.fill(ans, "");
-        List<String> wordList = new ArrayList<>(Arrays.asList(wordlist));
-        List<String> wordListLower = new ArrayList<>(Arrays.stream(wordlist)
-                                              .map(String::toLowerCase)
-                                              .toList());
-        List<String> wordListFixedVowel = new ArrayList<>();
-        Set<Character> vowels = Set.of('a','e','i','o','u');
-        for(int i=0;i<wordListLower.size();i++){
-            StringBuilder sb = new StringBuilder();
-            for (char c : wordListLower.get(i).toCharArray()) {
-                if (vowels.contains(c)) {
-                    sb.append('*');
-                } else {
-                    sb.append(c);
-                }
-            }
-            wordListFixedVowel.add(sb.toString());
+        set = new HashSet<>();
+        wordMap = new HashMap<>();
+        vowMap = new HashMap<>();
+        for(String word:wordlist){
+            set.add(word);
+            String wordlow = word.toLowerCase();
+            wordMap.putIfAbsent(wordlow,word);
+            String wordlowDV = devowel(wordlow);
+            vowMap.putIfAbsent(wordlowDV,word);
         }
-
-        //main loop
-        for(int i=0;i<queries.length;i++){
-            //exact match
-            if(wordList.contains(queries[i])){
-                ans[i] = queries[i];
-            }
-
-            //lower case match
-            else if(wordListLower.contains(queries[i].toLowerCase())){
-                ans[i] = wordlist[wordListLower.indexOf(queries[i].toLowerCase())];
-            }
-
-            //without vowel match
-            else{
-                StringBuilder sb = new StringBuilder();
-                for (char c : queries[i].toLowerCase().toCharArray()){
-                    if (vowels.contains(c)) {
-                        sb.append('*');
-                    } else {
-                        sb.append(c);
-                    }
-                }
-                if(wordListFixedVowel.contains(sb.toString().toLowerCase())){
-                    ans[i] = wordlist[wordListFixedVowel.indexOf(sb.toString().toLowerCase())];
-                }
-            }
+        String ans[] = new String[queries.length];
+        int i = 0;
+        for(String query:queries){
+            ans[i++] = solve(query);
         }
-
         return ans;
-        
+    }
+    public String devowel(String word){
+        StringBuilder str = new StringBuilder();
+        for(char c:word.toCharArray()){
+            str.append(isVowel(c)?'*':c);
+        }
+        return str.toString();
+    }
+    public boolean isVowel(char c){
+        return (c=='a' || c=='e' || c=='i' || c=='o' || c=='u');
+    }
+    public String solve(String query){
+        if(set.contains(query)){
+            return query;
+        }
+        String querylow = query.toLowerCase();
+        if(wordMap.containsKey(querylow)){
+            return wordMap.get(querylow);
+        }
+        String querylv = devowel(querylow);
+        if(vowMap.containsKey(querylv)){
+            return vowMap.get(querylv);
+        }
+        return "";
     }
 }
