@@ -1,22 +1,27 @@
-// Last updated: 9/15/2025, 11:04:09 AM
+// Last updated: 9/15/2025, 11:04:43 AM
 class Solution {
     public int canBeTypedWords(String text, String brokenLetters) {
-        Set<Character> broken = new HashSet<>();
-        for(char ch:brokenLetters.toCharArray()){
-            broken.add(ch);
+        String[] arr = text.split(" ");
+        char[] brokenWords = brokenLetters.toCharArray();
+        boolean[] charExists = new boolean[26];
+        for (char c : brokenWords) {
+            charExists[c - 'a'] = true;
         }
         int count = 0;
-        String[] arr = text.split(" ");
-        for(int i=0;i<arr.length;i++){
-            boolean check = true;
-            for(char ch:arr[i].toCharArray()){
-                if(broken.contains(ch)){
-                    check = false;
-                    break;
-                }
+        for (String word : arr) {
+            if (!hasBrokenLetters(word, charExists)) {
+                count++;
             }
-            if(check) count++;
         }
         return count;
+    }
+
+    public boolean hasBrokenLetters(String s, boolean[] charExists) {
+        for (int i = 0; i < s.length(); i++) {
+            if (charExists[s.charAt(i) - 'a']) {
+                return true;
+            }
+        }
+        return false;
     }
 }
