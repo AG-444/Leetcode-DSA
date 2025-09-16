@@ -1,30 +1,32 @@
-// Last updated: 9/16/2025, 11:11:11 PM
+// Last updated: 9/16/2025, 11:12:32 PM
 class Solution {
     public int trap(int[] height) {
-        Stack<Integer> stack = new Stack<>();
-        stack.push(0);
-        int max = 0;
-
-        for (int i = 1; i < height.length; i++) {
-            while (!stack.isEmpty() && height[stack.peek()] < height[i]) {
-                int left = stack.peek();
-                stack.pop();
-
-                if (stack.isEmpty()) {
-                    break;
+        Stack<Integer> s = new Stack<>();
+        int max = height[0];
+        int maxInd = 0;
+        int i = 1;
+        int result = 0;
+        while (i < height.length) {
+            if (height[i] > max) {
+                result += (i - maxInd - 1) * max;
+                for (int x : s) {
+                    result -= x;
                 }
-
-                int distance = i - stack.peek() - 1;
-                int boundedHeight = Math.min(height[stack.peek()], height[i]) - height[left];
-                int area = boundedHeight * distance;
-
-                if (area > 0) {
-                    max += area;
-                }
+                s = new Stack<>();
+                max = height[i];
+                maxInd = i;
+            } else {
+                s.add(height[i]);
             }
-            stack.push(i);
+            i++;
+        }
+        max=0;
+        while (!s.isEmpty()){
+            int c = s.pop();
+            max=Math.max(c,max);
+            result+=(max-c);
         }
 
-        return max;
+        return result;
     }
 }
