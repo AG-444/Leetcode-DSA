@@ -1,32 +1,24 @@
-// Last updated: 9/16/2025, 11:12:32 PM
+// Last updated: 9/17/2025, 9:23:01 AM
 class Solution {
-    public int trap(int[] height) {
-        Stack<Integer> s = new Stack<>();
-        int max = height[0];
-        int maxInd = 0;
-        int i = 1;
-        int result = 0;
-        while (i < height.length) {
-            if (height[i] > max) {
-                result += (i - maxInd - 1) * max;
-                for (int x : s) {
-                    result -= x;
-                }
-                s = new Stack<>();
-                max = height[i];
-                maxInd = i;
-            } else {
-                s.add(height[i]);
-            }
-            i++;
+    public int trap(int[] arr) {
+        int n = arr.length;
+        int[] prefix = new int[n];
+        prefix[0] = arr[0];
+        for(int i=1;i<n;i++){
+            prefix[i]=Math.max(prefix[i-1],arr[i]);
         }
-        max=0;
-        while (!s.isEmpty()){
-            int c = s.pop();
-            max=Math.max(c,max);
-            result+=(max-c);
+        int[] suffix = new int[n];
+        suffix[n-1]=arr[n-1];
+        for(int i=n-2;i>=0;i--){
+            suffix[i] = Math.max(suffix[i+1],arr[i]);
+        }
+        int total = 0;
+        for(int i=0;i<n;i++){
+            if(arr[i]<prefix[i] && arr[i]<suffix[i]){
+                total += Math.min(prefix[i],suffix[i]) - arr[i];
+            }
         }
 
-        return result;
+        return total;
     }
 }
