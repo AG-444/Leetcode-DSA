@@ -1,10 +1,11 @@
-// Last updated: 9/8/2025, 6:33:44 PM
+// Last updated: 9/17/2025, 10:52:30 AM
 class Solution {
     public static void makePerm(int[] nums, List<List<Integer>> ans , List<Integer> curr, boolean[] freq){
         if(curr.size() == nums.length){
             ans.add(new ArrayList<>(curr));
             return;
         }
+        
         for(int i=0;i<nums.length;i++){
             if(!freq[i]){
                 curr.add(nums[i]);
