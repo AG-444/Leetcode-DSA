@@ -1,35 +1,30 @@
-// Last updated: 9/23/2025, 11:51:00 AM
+// Last updated: 9/23/2025, 11:52:03 AM
 class Solution {
     public int compareVersion(String version1, String version2) {
-        String[] ver1 = version1.split("\\.");
-        String[] ver2 = version2.split("\\.");
-        List<Integer> verList1 = new ArrayList<>();
-        List<Integer> verList2 = new ArrayList<>();
-        int maxIdx = Math.max(ver1.length , ver2.length);
-        for(int i=0;i<maxIdx;i++){
-            try{
-                verList1.add(Integer.parseInt(ver1[i]));
+        int i = 0, j = 0;
+        int n = version1.length(), m = version2.length();
+
+        while (i < n || j < m) {
+            long num1 = 0, num2 = 0; // long to avoid overflow
+
+            while (i < n && version1.charAt(i) != '.') {
+                num1 = num1 * 10 + (version1.charAt(i) - '0');
+                i++;
             }
-            catch(ArrayIndexOutOfBoundsException  e){
-                verList1.add(0);
+
+            while (j < m && version2.charAt(j) != '.') {
+                num2 = num2 * 10 + (version2.charAt(j) - '0');
+                j++;
             }
-            try{
-                verList2.add(Integer.parseInt(ver2[i]));
-            }
-            catch(ArrayIndexOutOfBoundsException  e){
-                verList2.add(0);
-            }
+
+            if (num1 > num2) return 1;
+            if (num1 < num2) return -1;
+
+            // skip dots
+            if (i < n && version1.charAt(i) == '.') i++;
+            if (j < m && version2.charAt(j) == '.') j++;
         }
-        // System.out.println(verList1);
-        // System.out.println(verList2);
-        for(int i=0;i<maxIdx;i++){
-            if(verList1.get(i) > verList2.get(i)){
-                return 1;
-            }
-            if(verList1.get(i) < verList2.get(i)){
-                return -1;
-            }
-        }
+
         return 0;
     }
 }
