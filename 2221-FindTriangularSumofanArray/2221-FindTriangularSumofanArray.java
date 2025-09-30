@@ -1,4 +1,4 @@
-// Last updated: 9/30/2025, 8:04:14 PM
+// Last updated: 9/30/2025, 8:04:22 PM
 class Solution {
     public int triangularSum(int[] nums) {
         int n = nums.length;
