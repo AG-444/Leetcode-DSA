@@ -1,17 +1,17 @@
-// Last updated: 8/28/2025, 9:58:21 AM
+// Last updated: 10/14/2025, 3:07:45 PM
 class Solution {
     public int majorityElement(int[] nums) {
-        int count = 0;
-        int candidate = 0;
-
-        for (int num : nums) {
-            if (count == 0) {
-                candidate = num;
-            }
-
-            count += (num == candidate) ? 1 : -1;
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int i=0;i<nums.length;i++){
+            map.put(nums[i],map.getOrDefault(nums[i],0)+1);
         }
 
-        return candidate;
+        int freq = nums.length / 2;
+        for(int num:nums){
+            if(map.get(num) > freq){
+                return num;
+            }
+        }
+        return -1;
     }
 }
