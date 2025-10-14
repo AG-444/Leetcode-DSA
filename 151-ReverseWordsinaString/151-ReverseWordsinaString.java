@@ -1,20 +1,25 @@
-// Last updated: 10/14/2025, 3:22:49 PM
+// Last updated: 10/14/2025, 3:25:34 PM
 class Solution {
     public String reverseWords(String s) {
-        String[] words = s.trim().split("\\s+");
+        StringBuilder b = new StringBuilder();
+        int i = s.length() - 1;
+        while (i >= 0) {
+            while(i >= 0 && s.charAt(i) == ' ') {
+                i--;
+            }
+            int startIndex = i;
+            while (startIndex >= 0 && s.charAt(startIndex) != ' ') {
+                startIndex--;
+            }
 
-        int left = 0;
-        int right = words.length-1;
+            if(startIndex < i) {
+                b.append(" ");
+                b.append(s, startIndex + 1, i+1);
+            }
 
-        while(left<right){
-            String temp = words[left];
-            words[left] = words[right];
-            words[right] = temp;
-
-            left++;
-            right--;
+            i = startIndex;
         }
 
-        return String.join(" ",words);
+        return b.toString().trim();   
     }
 }
