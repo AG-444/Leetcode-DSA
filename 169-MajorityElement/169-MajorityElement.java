@@ -1,17 +1,24 @@
-// Last updated: 10/14/2025, 3:07:45 PM
+// Last updated: 10/14/2025, 3:09:00 PM
 class Solution {
-    public int majorityElement(int[] nums) {
-        Map<Integer, Integer> map = new HashMap<>();
-        for(int i=0;i<nums.length;i++){
-            map.put(nums[i],map.getOrDefault(nums[i],0)+1);
-        }
-
-        int freq = nums.length / 2;
-        for(int num:nums){
-            if(map.get(num) > freq){
-                return num;
-            }
-        }
-        return -1;
+    public static int majorityElement(int[] nums) {
+        return helper(nums,0,nums[0]);
+    }static int helper(int[] nums, int si, int ref){
+        int c=0;
+        for(int i=si;i<nums.length;i++){
+            if(nums[i]==ref)
+                c++;
+            else
+                c--;
+            if(c==-1)
+                return helper(nums,i,nums[i]);
+        }return ref;
+    }
+    public static void main(String[] args)throws Exception{
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        String[] s=br.readLine().split(" ");
+        int[] nums=new int[s.length];
+        for(int i=0;i<s.length;i++){
+            nums[i]=Integer.parseInt(s[i]);
+        }majorityElement(nums);
     }
 }
