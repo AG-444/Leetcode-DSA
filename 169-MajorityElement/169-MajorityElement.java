@@ -1,4 +1,4 @@
-// Last updated: 10/14/2025, 3:09:00 PM
+// Last updated: 10/14/2025, 3:10:09 PM
 class Solution {
     public static int majorityElement(int[] nums) {
         return helper(nums,0,nums[0]);
