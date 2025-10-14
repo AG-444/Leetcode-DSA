@@ -1,4 +1,4 @@
-// Last updated: 9/9/2025, 3:27:35 PM
+// Last updated: 10/14/2025, 2:42:14 PM
 class Solution {
     public double myPow(double x, int n) {
         return Math.pow(x,n);
